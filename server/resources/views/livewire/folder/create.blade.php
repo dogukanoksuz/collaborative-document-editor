@@ -1,12 +1,12 @@
-<div class="mb-5 float-right ml-5">
-    <x-jet-button wire:click="confirmCreating">
-        <svg class="w-6 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-        Yeni Doküman Oluştur
+<div class="mb-5 float-right">
+    <x-jet-button wire:click="confirmCreatingFolder">
+        <svg class="w-6 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
+        Yeni Klasör Oluştur
     </x-jet-button>
 
-    <x-jet-dialog-modal wire:model="isCreating">
+    <x-jet-dialog-modal wire:model="isCreatingFolder">
         <x-slot name="title">
-            Yeni Doküman Oluştur
+            Yeni Klasör Oluştur
         </x-slot>
 
         <x-slot name="content">
@@ -19,7 +19,7 @@
                 <p>{{ $message }}</p>
             </div>
             @endif
-            Oluşturmak istediğiniz dokümanın ismini yazınız.
+            Oluşturmak istediğiniz klasörün ismini yazınız.
 
 
             <div class="mt-4" x-data="{}">
@@ -33,7 +33,7 @@
                 {{ __('Close') }}
             </x-jet-secondary-button>
 
-            <x-jet-button class="ml-2" wire:click="createNewDocument" wire:loading.attr="disabled">
+            <x-jet-button class="ml-2" wire:click="createNewFolder" wire:loading.attr="disabled">
                 {{ __('Create') }}
             </x-jet-button>
         </x-slot>

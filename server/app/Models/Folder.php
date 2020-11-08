@@ -5,21 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Folder extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name', 'content'
-    ];
+    protected $fillable = ['name'];
 
     public function user()
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function folder()
+    public function document()
     {
-        return $this->belongsTo(Folder::class);
+        return $this->hasMany(Document::class);
     }
 }

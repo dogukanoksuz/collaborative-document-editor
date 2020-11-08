@@ -24,7 +24,7 @@ class Create extends Component
             ]);
 
             $document->user()->attach(auth()->user());
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->emitTo('dashboard', 'flashMessage', "Oluşturma işlemi başarısız oldu!");
         }        
         $this->emitTo('dashboard', 'flashMessage', $this->name . " isimli doküman başarıyla eklendi!");

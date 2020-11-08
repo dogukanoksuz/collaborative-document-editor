@@ -59,6 +59,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function folder()
+    {
+        return $this->belongsToMany(Folder::class);
+    }
+
     public function document()
     {
         return $this->belongsToMany(Document::class);
