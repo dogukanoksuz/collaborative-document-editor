@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware(['auth:sanctum', 'verified', 'document'])->group(function () {
+    Route::get('/dashboard', \App\Http\Livewire\Dashboard::class)->name('dashboard');
+    Route::get('/document/{documentId}', '\App\Http\Controllers\DocumentController@show')->name('showDocument');
+});
