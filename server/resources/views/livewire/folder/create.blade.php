@@ -20,7 +20,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$toggle('isCreating')" wire:loading.attr="disabled">
+            <x-jet-secondary-button wire:click="$toggle('isCreatingFolder')" wire:loading.attr="disabled">
                 {{ __('Close') }}
             </x-jet-secondary-button>
 
