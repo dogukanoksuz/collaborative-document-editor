@@ -10,6 +10,8 @@ class Create extends Component
     public $isCreatingFolder = false;
     public $name = "";
     public $message = "";
+    public $emitTo;
+    public $folderId;
 
     public function confirmCreatingFolder()
     {
@@ -19,19 +21,48 @@ class Create extends Component
     public function createNewFolder()
     {
         try {
-            $folder = Folder::create([
-                'name' => $this->name
-            ]);
+            if ($this->folderId == null) {
+                $folder = Folder::create([
+                    'name' => $this->name
+                ]);
+            } else {
+                $folder = Folder::create([
+                    'name' => $this->name,
+                    'parent_folder_id' => (int)$this->folderId
+                ]);
+            }
+            
 
             $folder->user()->attach(auth()->user());
         } catch (\Throwable $e) {
-            $this->emitTo('dashboard', 'flashMessage', "Oluşturma işlemi başarısız oldu!");
+            $this->emitTo($this->emitTo, 'flashMessage', "Oluşturma işlemi başarısız oldu!");
         }        
-        $this->emitTo('dashboard', 'flashMessage', $this->name . " isimli klasör başarıyla eklendi!");
+        $this->emitTo($this->emitTo, 'flashMessage', $this->name . " isimli klasör başarıyla eklendi!");
 
-        $this->emitTo('folder.show', 'newFolderCreated');
+        if ($this->folderId == null) {
+            $folders = Folder::where('parent_folder_id', null)->orderBy('updated_at', 'DESC')->get();
+        } else {
+            $folders = Folder::where('parent_folder_id', $this->folderId)->orderBy('updated_at', 'DESC')->get();
+        }
+        
+        $this->emitTo('folder.show', 'newFolderCreated', $folders, $this->folderId);
         $this->isCreatingFolder = false;
         $this->name = "";
+    }
+
+    public function mount($emitTo, $folderId)
+    {
+        $this->folderId = $folderId;
+
+        $this->emitTo = $emitTo;
+
+        if(!$emitTo) {
+            $this->emitTo = 'dashboard';
+        }
+
+        if(!$folderId) {
+            $this->folderId = null;
+        }
     }
 
     public function render()

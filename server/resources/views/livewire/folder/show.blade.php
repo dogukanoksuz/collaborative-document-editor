@@ -16,9 +16,9 @@
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-4" wire:loading.remove>
         @foreach ($folders as $folder)
         <div class="float-left bg-white rounded shadow hover:bg-gray-100 transition duration-500">
-            <a href="#" class="block p-5">
+            <a href="{{ route('listFolderContents', $folder['id']) }}" class="block p-5">
                 <svg class="-ml-1 mr-3 h-6 w-6 float-left" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                <div class="font-semibold">{{ $folder->name }}</div>
+                <div class="font-semibold">{{ $folder['name'] }}</div>
             </a>
         </div>
         @endforeach

@@ -41,10 +41,10 @@
                 </ol>
             </nav>
         </div>
-        <livewire:document.create />
-        <livewire:folder.create />
+        <livewire:document.create :emitTo="null" :folderId="null" />
+        <livewire:folder.create :emitTo="null" :folderId="null"/>
 
-        <livewire:folder.show />
-        <livewire:document.show />
+        <livewire:folder.show :folders="null" :folderId="null" />
+        <livewire:document.show :documents="null" />
     </div>
 </div>

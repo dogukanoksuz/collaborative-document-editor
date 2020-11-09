@@ -16,7 +16,7 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" wire:loading.remove>
         @foreach ($documents as $document)
         <div class="float-left bg-white rounded shadow hover:bg-gray-100 transition duration-500">
-            <a href="{{ route('showDocument', $document->id) }}" class="block p-5">
+            <a href="{{ route('showDocument', $document["id"]) }}" class="block p-5">
                 <svg class="-ml-1 mr-3 h-6 w-6 float-left" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -24,8 +24,8 @@
                     </path>
                 </svg>
                 <div class="flex flex-col">
-                    <div class="font-semibold w-full">{{ $document->name }}</div>
-                    <div class="font-weight:300 text-gray-600 text-sm w-full">{{ $document->updated_at->isoFormat('LLL') }}
+                    <div class="font-semibold w-full">{{ $document["name"] }}</div>
+                    <div class="font-weight:300 text-gray-600 text-sm w-full">{{ \Carbon\Carbon::parse($document["updated_at"])->isoFormat('LLL') }}
                     </div>
                 </div>
             </a>

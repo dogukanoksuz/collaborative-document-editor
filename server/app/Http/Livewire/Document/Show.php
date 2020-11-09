@@ -10,14 +10,30 @@ class Show extends Component
 
     protected $listeners = ['newDocumentCreated'];
 
-    public function newDocumentCreated()
+    public function newDocumentCreated($documents)
     {
-        $this->documents = auth()->user()->document()->orderBy('updated_at', 'DESC')->get();
+        if (!$documents)
+        {
+            $this->documents = auth()->user()->document()
+                                ->orderBy('updated_at', 'DESC')
+                                ->where('folder_id', null)
+                                ->get();
+        } else {
+            $this->documents = $documents;
+        }
     }
 
-    public function mount()
+    public function mount($documents)
     {
-        $this->documents = auth()->user()->document()->orderBy('updated_at', 'DESC')->get();
+        if (!$documents)
+        {
+            $this->documents = auth()->user()->document()
+                                ->orderBy('updated_at', 'DESC')
+                                ->where('folder_id', null)
+                                ->get();
+        } else {
+            $this->documents = $documents;
+        }
     }
 
     public function render()
