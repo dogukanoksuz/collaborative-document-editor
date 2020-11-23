@@ -9,12 +9,16 @@ class Edit extends Component
 {
     public $document;
     public $folderId;
+    public $joining_key;
 
     public function mount($documentId)
     {
         $this->document = Document::findOrFail($documentId);
 
         $this->folderId = $this->document->folder_id;
+        
+        $to_be_hashed = env('SOCKET_SECRET') . "||" . $documentId . "||" . auth()->user()->id;
+        $this->joining_key = md5($to_be_hashed);
     }
 
     public function render()

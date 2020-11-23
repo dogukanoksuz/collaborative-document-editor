@@ -28,7 +28,7 @@ class Create extends Component
             } else {
                 $folder = Folder::create([
                     'name' => $this->name,
-                    'parent_folder_id' => (int)$this->folderId
+                    'parent_folder_id' => $this->folderId
                 ]);
             }
             
@@ -44,6 +44,8 @@ class Create extends Component
         } else {
             $folders = Folder::where('parent_folder_id', $this->folderId)->orderBy('updated_at', 'DESC')->get();
         }
+
+        $this->emitTo($this->emitTo, 'emptyDecrement');
         
         $this->emitTo('folder.show', 'newFolderCreated', $folders, $this->folderId);
         $this->isCreatingFolder = false;

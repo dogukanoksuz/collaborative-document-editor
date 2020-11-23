@@ -14,10 +14,8 @@ class CreateFoldersTable extends Migration
     public function up()
     {
         Schema::create('folders', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignId('parent_folder_id')->nullable();
-            $table->foreign('parent_folder_id')->references('id')->on('folders')->cascadeOnDelete();
             $table->timestamps();
         });
     }

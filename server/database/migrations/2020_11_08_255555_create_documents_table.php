@@ -14,10 +14,10 @@ class CreateDocumentsTable extends Migration
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->longText('content')->nullable();
-            $table->foreignId('folder_id')->nullable();
+            $table->uuid('folder_id')->nullable();
             $table->foreign('folder_id')->references('id')->on('folders')->cascadeOnDelete();
             $table->timestamps();
         });

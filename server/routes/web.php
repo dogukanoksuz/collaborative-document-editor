@@ -21,14 +21,10 @@ Route::middleware(['auth:sanctum', 'verified', 'document'])->group(function () {
     Route::get('/dashboard', \App\Http\Livewire\Dashboard::class)->name('dashboard');
 
     Route::get('/document/{documentId}', \App\Http\Livewire\Document\Edit::class)
-        ->name('showDocument')
-        ->where([
-            'documentId' => '[0-9]+'
-        ]);
+        ->name('showDocument');
         
     Route::get('/folder/{folderId}', \App\Http\Livewire\Folder\ListContents::class)
-        ->name('listFolderContents')
-        ->where([
-            'folderId' => '[0-9]+'
-        ]);
+        ->name('listFolderContents');
+
+
 });

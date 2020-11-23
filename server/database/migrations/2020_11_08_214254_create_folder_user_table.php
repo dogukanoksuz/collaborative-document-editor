@@ -15,7 +15,7 @@ class CreateFolderUserTable extends Migration
     {
         Schema::create('folder_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('folder_id');
+            $table->uuid('folder_id');
             $table->foreignId('user_id');
             $table->foreign('folder_id')->on('folders')->references('id')->cascadeOnDelete();
             $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();

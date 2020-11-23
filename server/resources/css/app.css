@@ -1,3 +1,85 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+:root {
+    --ck-sample-base-spacing: 2em;
+    --ck-sample-color-white: #fff;
+    --ck-sample-color-green: #279863;
+    --ck-sample-color-blue: #1a9aef;
+    --ck-sample-container-width: 1285px;
+    --ck-sample-sidebar-width: 350px;
+    --ck-sample-editor-min-height: 400px;
+}
+
+.editor__editable,
+/* Classic build. */
+main .ck-editor[role='application'] .ck.ck-content,
+/* Decoupled document build. */
+.ck.editor__editable[role='textbox'],
+.ck.ck-editor__editable[role='textbox'],
+/* Inline & Balloon build. */
+.ck.editor[role='textbox'] {
+    width: 100%;
+    background: #fff;
+    font-size: 1em;
+    line-height: 1.6em;
+    min-height: var(--ck-sample-editor-min-height);
+    padding: 1.5em 2em;
+}
+
+.ck.ck-editor__editable {
+    background: #fff;
+    border: 1px solid hsl(0, 0%, 70%);
+    width: 100%;
+}
+
+.ck.ck-editor {
+    /* To enable toolbar wrapping. */
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Because of sidebar `position: relative`, Edge is overriding the outline of a focused editor. */
+.ck.ck-editor__editable {
+    position: relative;
+    z-index: 10;
+}
+
+/* --------- DECOUPLED (DOCUMENT) BUILD. ---------------------------------------------*/
+body[data-editor='DecoupledDocumentEditor'] .document-editor__toolbar {
+    width: 100%;
+}
+
+body[ data-editor='DecoupledDocumentEditor'] .collaboration-demo__editable,
+body[ data-editor='DecoupledDocumentEditor'] .row-editor .editor {
+    width: 18.5cm;
+    height: 100%;
+    min-height: 26.25cm;
+    padding: 1.75cm 1.5cm;
+    margin: 2.5rem;
+    border: 1px hsl(0, 0%, 82.7%) solid;
+    background-color: var(--ck-sample-color-white);
+    box-shadow: 0 0 5px hsla(0, 0%, 0%, .1);
+}
+
+body[ data-editor='DecoupledDocumentEditor'] .row-editor {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    overflow-y: auto;
+    background-color: #f2f2f2;
+    border: 1px solid hsl(0, 0%, 77%);
+}
+
+body[data-editor='DecoupledDocumentEditor'] .sidebar {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.ck-toolbar {
+    background: #fff !important;
+    font-family: 'Inter', Inter !important;
+    border-radius: 5px;
+}

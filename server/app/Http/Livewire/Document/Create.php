@@ -30,12 +30,14 @@ class Create extends Component
             } else {
                 $document = Document::create([
                     'name' => $this->name,
-                    'folder_id' => (int)$this->folderId
+                    'folder_id' => $this->folderId
                 ]);
             }
 
             $document->user()->attach(auth()->user());
-        } catch (\Throwable $e) {
+        } 
+        catch (\Throwable $e) 
+        {
             $this->emitTo($this->emitTo, 'flashMessage', "Oluşturma işlemi başarısız oldu!");
         }        
         $this->emitTo($this->emitTo, 'flashMessage', $this->name . " isimli doküman başarıyla eklendi!");
@@ -43,10 +45,14 @@ class Create extends Component
         if ($this->folderId == null) 
         {
             $documents = Document::where('folder_id', null)->orderBy('updated_at', 'DESC')->get();
-        } else {
+        } 
+        else 
+        {
             $documents = Folder::findOrFail($this->folderId)->document()->orderBy('updated_at', 'DESC')->get();
         }
         
+        $this->emitTo($this->emitTo, 'emptyDecrement');
+
         $this->emitTo('document.show', 'newDocumentCreated', $documents);
         $this->isCreating = false;
         $this->name = "";

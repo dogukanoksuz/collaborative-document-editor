@@ -20,8 +20,8 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body class="font-sans antialiased bg-gray-100" data-editor="DecoupledDocumentEditor" data-collaboration="false">
+    <div class="min-h-screen pb-5">
         @livewire('navigation-dropdown')
 
         <!-- Page Content -->
@@ -33,6 +33,8 @@
     @stack('modals')
 
     @livewireScripts
+    <script src="{{asset('js/app.js')}}"></script>
+    @yield('scripts')
 </body>
 
 </html>

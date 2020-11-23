@@ -1,25 +1,25 @@
-const express = require("express")
-const app = express()
+/**
+ * @type {any}
+ */
+const WebSocket = require('ws')
+const http = require('http')
+const StaticServer = require('node-static').Server
+const setupWSConnection = require('y-websocket/bin/utils.js').setupWSConnection
 
-const http = require("http").createServer(app)
-const io = require("socket.io")(http, { origins: '*:*' })
+const production = process.env.PRODUCTION != null
+const port = 9000
 
-io.on("connection", (socket) => {
-    console.log(`User connected!`)
+const staticServer = new StaticServer('.', { cache: production ? 3600 : false, gzip: production })
 
-    socket.on("message", (data) => {
-        socket.broadcast.emit("message", data)
-    })
-
-    socket.on("disconnect", () => {
-        console.log(`User disconnected!`)
-    })
+const server = http.createServer((request, response) => {
+  request.addListener('end', () => {
+    staticServer.serve(request, response)
+  }).resume()
 })
+const wss = new WebSocket.Server({ server })
 
-app.get('/', (_, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
+wss.on('connection', (conn, req) => setupWSConnection(conn, req))
 
-http.listen(3000, () => {
-    console.log("Server is listening right now")
-})
+server.listen(port)
+
+console.log(`Listening to wss://localhost:${port} ${production ? '(production)' : ''}`)

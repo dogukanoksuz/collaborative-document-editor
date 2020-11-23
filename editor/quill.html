@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Yjs Quill Example</title>
+  <script>
+    var divergent_name = "Doğukan Öksüz";
+    var divergent_color = "pink";
+  </script>
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/highlight.min.js" async></script>
+  <script type="text/javascript" src="./dist/quill.bundle.js" async></script>
+  <link rel=stylesheet href="./quill.css" async defer>
+  <link rel="stylesheet" href="./tippy.css" async defer>
+  <link rel=stylesheet href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" async defer>
+  <link rel=stylesheet href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" async
+    defer>
+</head>
+
+<body>
+  <div id="full-container">
+    <div class="toolbar ql-toolbar">
+      <div class="ql-formats">
+        <select class="ql-size">
+          <option value="small"></option>
+          <option selected></option>
+          <option value="large"></option>
+          <option value="huge"></option>
+        </select>
+      </div>
+      <div class="ql-formats">
+        <select class="ql-header">
+          <option value="1"></option>
+          <option value="2"></option>
+          <option value="3"></option>
+          <option selected="selected"></option>
+        </select>
+      </div>
+      <div class="ql-formats">
+        <button class="ql-bold" title="Kalın"></button>
+        <button class="ql-italic"></button>
+        <button class="ql-underline"></button>
+        <button class="ql-strike"></button>
+        <select class="ql-align"></select>
+      </div>
+      <div class="ql-formats">
+        <select class="ql-color">
+
+        </select>
+        <select class="ql-background">
+
+        </select>
+      </div>
+      <div class="ql-formats">
+        <button class="ql-table"></button>
+        <button class="ql-blockquote"></button>
+        <button class="ql-code-block"></button>
+      </div>
+      <div class="ql-formats">
+        <button class="ql-list" value="ordered"></button>
+        <button class="ql-list" value="bullet"></button>
+        <button class="ql-indent" value="+1"></button>
+        <button class="ql-indent" value="-1"></button>
+      </div>
+      <div class="ql-formats">
+        <button class="ql-link"></button>
+        <button class="ql-image"></button>
+      </div>
+      <div class="ql-formats">
+        <button class="ql-clean"></button>
+      </div>
+    </div>
+    <div class="editor ql-container">
+
+    </div>
+  </div>
+  <button id="insert-table">
+    Tabl insert
+  </button>
+
+  <div id="bubble-container">
+
+  </div>
+
+  <div id="output-container">
+
+  </div>
+</body>
+
+</html>

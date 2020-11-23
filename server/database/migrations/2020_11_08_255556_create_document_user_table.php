@@ -17,7 +17,7 @@ class CreateDocumentUserTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreignId('document_id');
+            $table->uuid('document_id');
             $table->foreign('document_id')->references('id')->on('documents')->cascadeOnDelete();
         });
     }

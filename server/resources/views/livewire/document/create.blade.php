@@ -23,7 +23,7 @@
                 {{ __('Close') }}
             </x-jet-secondary-button>
 
-            <x-jet-button class="ml-2" wire:click="createNewDocument({{ $folderId }})" wire:loading.attr="disabled">
+            <x-jet-button class="ml-2" wire:click="createNewDocument" wire:loading.attr="disabled">
                 {{ __('Create') }}
             </x-jet-button>
         </x-slot>
