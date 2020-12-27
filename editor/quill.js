@@ -23,8 +23,8 @@ Quill.register({
 
 window.addEventListener('load', () => {
   const ydoc = new Y.Doc()
-  var provider = new WebsocketProvider('ws://localhost:9000', 'quill', ydoc)
-  const type = ydoc.getText('quill')
+  var provider = new WebsocketProvider('ws://localhost:9000', documentUUID, ydoc)
+  const type = ydoc.getText(documentUUID)
 
   let editor = new Quill('#full-container .editor', {
     bounds: '#full-container .editor',
@@ -36,13 +36,14 @@ window.addEventListener('load', () => {
       'tableUI': true,
       'magicUrl': true,
       'imageDrop': true,
-      'blotFormatter': {
-
-      }
+      'blotFormatter': {}
     },
 
     theme: 'snow'
   });
+
+  editorInstance = editor
+  providerInstance = provider
 
   const binding = new QuillBinding(type, editor, provider.awareness)
 
@@ -90,4 +91,41 @@ window.addEventListener('load', () => {
   tippy('.ql-clean', {
     content: 'Biçimlendirmeyi Temizle'
   })
+
+
+  // Auto-save AJAX
+  let save = () => {
+    $.ajax(saveRoute, {
+      type: 'POST',
+      data: {
+        '_token': csrfToken,
+        'data': $(".ql-editor").html()
+      },
+      success: function (data, status, xhr) {
+        //console.log('status: ' + status + ', data: ' + data);
+      },
+      error: function (jqXhr, textStatus, errorMessage) {
+        clearInterval(saveLoop);
+        console.log('Error' + errorMessage);
+      }
+    })
+  }
+
+  let saveLoop = setInterval(() => {
+    save()
+  }, 9999999)
+
+  let checker = false;
+
+  $(".editor").keypress(function () {
+    if (!checker) {
+      clearInterval(saveLoop)
+      saveLoop = setInterval(() => {
+        save()
+      }, 8000)
+      checker = true
+    }
+
+  })
 })
+

@@ -18,7 +18,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified', 'document'])->group(function () {
-    Route::get('/dashboard', \App\Http\Livewire\Dashboard::class)->name('dashboard');
+    Route::get('/dashboard', \App\Http\Livewire\Dashboard::class)
+        ->name('dashboard');
 
     Route::get('/document/{documentId}', \App\Http\Livewire\Document\Edit::class)
         ->name('showDocument');
@@ -26,5 +27,7 @@ Route::middleware(['auth:sanctum', 'verified', 'document'])->group(function () {
     Route::get('/folder/{folderId}', \App\Http\Livewire\Folder\ListContents::class)
         ->name('listFolderContents');
 
-
+    Route::post('/document/{documentId}/save', 
+                ['\App\Http\Controllers\API\DocumentController', 'save'])
+        ->name('saveDocument');
 });

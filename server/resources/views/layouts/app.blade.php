@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
 </head>
 
-<body class="font-sans antialiased bg-gray-100" data-editor="DecoupledDocumentEditor" data-collaboration="false">
+<body class="font-sans antialiased bg-gray-100">
     <div class="min-h-screen pb-5">
         @livewire('navigation-dropdown')
 

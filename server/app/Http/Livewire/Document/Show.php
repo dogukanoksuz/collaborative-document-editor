@@ -12,15 +12,10 @@ class Show extends Component
 
     public function newDocumentCreated($documents)
     {
-        if (!$documents)
-        {
-            $this->documents = auth()->user()->document()
+        $this->documents = auth()->user()->document()
                                 ->orderBy('updated_at', 'DESC')
                                 ->where('folder_id', null)
                                 ->get();
-        } else {
-            $this->documents = $documents;
-        }
     }
 
     public function mount($documents)

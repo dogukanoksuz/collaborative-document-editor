@@ -12,12 +12,7 @@ class Show extends Component
     
     public function newFolderCreated($folders, $folderId)
     {
-        if(!$folders)
-        {
-            $this->folders = auth()->user()->folder()->where('parent_folder_id', null)->orderBy('updated_at', 'DESC')->get();
-        } else {
-            $this->folders = auth()->user()->folder()->where('parent_folder_id', $folderId)->orderBy('updated_at', 'DESC')->get();
-        }
+        $this->folders = auth()->user()->folder()->where('parent_folder_id', null)->orderBy('updated_at', 'DESC')->get();
     }
 
     public function mount($folders, $folderId)
