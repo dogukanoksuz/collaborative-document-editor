@@ -49,7 +49,8 @@ window.addEventListener('load', () => {
 
   provider.awareness.setLocalStateField('user', {
     name: divergent_name,
-    color: divergent_color
+    color: divergent_color,
+    avatar: divergent_avatar
   })
 
   tippy('.ql-bold', {
@@ -91,7 +92,9 @@ window.addEventListener('load', () => {
   tippy('.ql-clean', {
     content: 'Biçimlendirmeyi Temizle'
   })
-
+  tippy('.download-pdf', {
+    content: 'PDF Olarak Kaydet'
+  })
 
   // Auto-save AJAX
   let save = () => {
@@ -121,7 +124,9 @@ window.addEventListener('load', () => {
     if (!checker) {
       clearInterval(saveLoop)
       saveLoop = setInterval(() => {
-        save()
+        if (document.hasFocus()) {
+          save()
+        }
       }, 8000)
       checker = true
     }

@@ -3,30 +3,14 @@
         <livewire:breadcrumb :folderId="$folderId" :documentId="$document->id" />
         <div class="userlist-Dropdown float-right">
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <div class="relative" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
-                    <div @click="open = ! open">
-                        <button
+                <div class="flex -space-x-1 overflow-hidden userlist">
+                    <button
                             class="flex border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out p-2 font-bold">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                             &nbsp;
-                            Görüntüleyen kullanıcılar
+                            Görüntüleyen kullanıcılar yükleniyor
                         </button>
-                    </div>
-
-                    <div x-show="open" x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="transform opacity-0 scale-95"
-                        x-transition:enter-end="transform opacity-100 scale-100"
-                        x-transition:leave="transition ease-in duration-75"
-                        x-transition:leave-start="transform opacity-100 scale-100"
-                        x-transition:leave-end="transform opacity-0 scale-95"
-                        class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0"
-                        style="display: none;" @click="open = false">
-                        <div class="rounded-md shadow-xs py-1 bg-white userlist">
-                            Yükleniyor
-                        </div>
-                    </div>
                 </div>
-
             </div>
         </div>
         <br><br>
@@ -81,6 +65,7 @@
                     </div>
                     <div class="ql-formats">
                         <button class="ql-clean"></button>
+                        <button class="download-pdf" onclick="window.location.href='{{ route('showDocumentAsPdf', $document->id) }}'"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path></svg></button>
                     </div>
                 </div>
                 <div class="editor ql-container"></div>
@@ -109,6 +94,7 @@
     // Editör cursor bilgileri
     var divergent_name = "{{ auth()->user()->name }}";
     var divergent_color = getRandomColor();
+    var divergent_avatar = "{{ auth()->user()->profile_photo_url }}";
 
     // Quill.js dosyasına php tarafından passlamamız gereken değişkenler
     var documentUUID = "{{ $document->id }}";
@@ -135,7 +121,7 @@
         } else {
             setTimeout(() => {
                 insertTextIntoEditor()
-            }, 2000);
+            }, 3000);
         }
     }
     insertTextIntoEditor();
@@ -147,16 +133,20 @@
             let userList = providerInstance.awareness.getStates().entries()
             userList = [...userList]
             userList.forEach(function (elem) {
-                $(".userlist").append(`<a style="background-color: ${elem[1].user.color}" class="block px-4 py-2 text-sm leading-5 text-white focus:outline-none"
-                                href="#">${elem[1].user.name}</a>`)
+                $(".userlist").append(
+                    `<img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="${elem[1].user.avatar}" alt="${elem[1].user.name}">`
+                )
             })
             setInterval(() => {
-                getUserList();
+                if (document.hasFocus())
+                {
+                    getUserList();
+                }
             }, 8000);
         } else {
             setTimeout(() => {
                 getUserList();
-            }, 2000);
+            }, 3000);
         }
     }
     getUserList();

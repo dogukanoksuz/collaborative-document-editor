@@ -23,11 +23,15 @@ Route::middleware(['auth:sanctum', 'verified', 'document'])->group(function () {
 
     Route::get('/document/{documentId}', \App\Http\Livewire\Document\Edit::class)
         ->name('showDocument');
+
+    Route::get('/document/{documentId}/pdf', ['\App\Http\Controllers\Document\PDFController', 'renderAsHtml'])
+        ->name('showDocumentAsPdf');
         
-    Route::get('/folder/{folderId}', \App\Http\Livewire\Folder\ListContents::class)
-        ->name('listFolderContents');
+    /*Route::get('/folder/{folderId}', \App\Http\Livewire\Folder\ListContents::class)
+        ->name('listFolderContents');*/
 
     Route::post('/document/{documentId}/save', 
                 ['\App\Http\Controllers\API\DocumentController', 'save'])
         ->name('saveDocument');
+    
 });
