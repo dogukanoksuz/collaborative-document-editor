@@ -1,14 +1,3 @@
-- Userlar link aldığında direkt erişebiliyor, paylaşım sistemi ayarlanacak
-- Sağ tık menüsü konulup silme, paylaşma falan eklenecek
-- Websocket auth öğrensem iyi olur.
-- Arama
-
-
-// yapılanlar
-- Document save sistemi eklenecek (ajax ile) -- yazıldı test edilecek // 1 kere test edildi
-- Soket sistemi userlar arasında ayrıştırılacak. -- yazıldı test edilecek
-- Collab eden userlar listelenecek.
-- PDF sistemi eklenecek
-
 // overengineering ideas
 - SS alma sistemi eklenecek
+- Websocket auth sistemi yazılmalı mı?

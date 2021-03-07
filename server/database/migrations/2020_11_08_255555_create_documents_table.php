@@ -17,8 +17,6 @@ class CreateDocumentsTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->longText('content')->nullable();
-            $table->uuid('folder_id')->nullable();
-            $table->foreign('folder_id')->references('id')->on('folders')->cascadeOnDelete();
             $table->timestamps();
         });
     }

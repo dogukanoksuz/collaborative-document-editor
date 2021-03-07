@@ -10,12 +10,16 @@ class Show extends Component
 
     protected $listeners = ['newDocumentCreated'];
 
-    public function newDocumentCreated($documents)
+    public function newDocumentCreated()
     {
         $this->documents = auth()->user()->document()
                                 ->orderBy('updated_at', 'DESC')
-                                ->where('folder_id', null)
                                 ->get();
+    }
+
+    public function share()
+    {
+        
     }
 
     public function mount($documents)
@@ -24,7 +28,6 @@ class Show extends Component
         {
             $this->documents = auth()->user()->document()
                                 ->orderBy('updated_at', 'DESC')
-                                ->where('folder_id', null)
                                 ->get();
         } else {
             $this->documents = $documents;

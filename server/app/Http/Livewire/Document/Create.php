@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Document;
 
 use Livewire\Component;
 use App\Models\Document;
-use App\Models\Folder;
 
 class Create extends Component
 {
@@ -12,7 +11,6 @@ class Create extends Component
     public $name = "";
     public $message = "";
     public $emitTo;
-    public $folderId;
 
     public function confirmCreating()
     {
@@ -22,18 +20,10 @@ class Create extends Component
     public function createNewDocument()
     {
         try {
-            if($this->folderId == null)
-            {
-                $document = Document::create([
-                    'name' => $this->name,
-                ]);
-            } else {
-                $document = Document::create([
-                    'name' => $this->name,
-                    'folder_id' => $this->folderId
-                ]);
-            }
-
+            $document = Document::create([
+                'name' => $this->name,
+            ]);
+           
             $document->user()->attach(auth()->user());
         } 
         catch (\Throwable $e) 
@@ -42,14 +32,7 @@ class Create extends Component
         }        
         $this->emitTo($this->emitTo, 'flashMessage', $this->name . " isimli doküman başarıyla eklendi!");
 
-        if ($this->folderId == null) 
-        {
-            $documents = Document::where('folder_id', null)->orderBy('updated_at', 'DESC')->get();
-        } 
-        else 
-        {
-            $documents = Folder::findOrFail($this->folderId)->document()->orderBy('updated_at', 'DESC')->get();
-        }
+        $documents = Document::orderBy('updated_at', 'DESC')->get();
         
         $this->emitTo($this->emitTo, 'emptyDecrement');
 
@@ -58,18 +41,12 @@ class Create extends Component
         $this->name = "";
     }
 
-    public function mount($emitTo, $folderId)
+    public function mount($emitTo)
     {
-        $this->folderId = $folderId;
-
         $this->emitTo = $emitTo;
 
         if(!$emitTo) {
             $this->emitTo = 'dashboard';
-        }
-
-        if(!$folderId) {
-            $this->folderId = null;
         }
     }
 

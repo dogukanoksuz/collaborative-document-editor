@@ -105,7 +105,7 @@ window.addEventListener('load', () => {
         'data': $(".ql-editor").html()
       },
       success: function (data, status, xhr) {
-        //console.log('status: ' + status + ', data: ' + data);
+        console.log('status: ' + status + ', data: ' + data);
       },
       error: function (jqXhr, textStatus, errorMessage) {
         clearInterval(saveLoop);
@@ -124,9 +124,7 @@ window.addEventListener('load', () => {
     if (!checker) {
       clearInterval(saveLoop)
       saveLoop = setInterval(() => {
-        if (document.hasFocus()) {
-          save()
-        }
+        save()
       }, 8000)
       checker = true
     }

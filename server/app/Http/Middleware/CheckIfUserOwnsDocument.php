@@ -25,16 +25,6 @@ class CheckIfUserOwnsDocument
                 return redirect(route('dashboard'));
             }
         }
-
-        $folderId = $request->route('folderId');
-        if ($folderId)
-        {
-            if (Auth::user()->folder()->find($folderId) === null)
-            {
-                return redirect(route('dashboard'));
-            }
-        }
-
         return $next($request);
     }
 }

@@ -18,4 +18,13 @@ class DocumentController extends Controller
 
         return response()->json(['message' => 'Success', 'state' => 'ok']);
     }
+
+    public function delete($documentId)
+    {
+        $document = Document::where('id', $documentId)->first();
+
+        $document->delete();
+
+        return response()->json(['message' => 'Success', 'state' => 'ok']);
+    }
 }

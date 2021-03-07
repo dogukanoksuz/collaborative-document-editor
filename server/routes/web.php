@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    } else {
+        return redirect()->route('register');
+    }
 });
 
 Route::middleware(['auth:sanctum', 'verified', 'document'])->group(function () {
@@ -24,14 +28,20 @@ Route::middleware(['auth:sanctum', 'verified', 'document'])->group(function () {
     Route::get('/document/{documentId}', \App\Http\Livewire\Document\Edit::class)
         ->name('showDocument');
 
+    Route::get('/document/{documentId}/share', \App\Http\Livewire\Document\Share::class)
+        ->name('shareDocument');
+
     Route::get('/document/{documentId}/pdf', ['\App\Http\Controllers\Document\PDFController', 'renderAsHtml'])
         ->name('showDocumentAsPdf');
-        
-    /*Route::get('/folder/{folderId}', \App\Http\Livewire\Folder\ListContents::class)
-        ->name('listFolderContents');*/
-
+ 
     Route::post('/document/{documentId}/save', 
                 ['\App\Http\Controllers\API\DocumentController', 'save'])
         ->name('saveDocument');
-    
+
+    Route::get('/document/{documentId}/delete', 
+                ['\App\Http\Controllers\API\DocumentController', 'delete'])
+        ->name('deleteDocument');
+
+    Route::get('/search', \App\Http\Livewire\Search::class)
+        ->name('search');
 });

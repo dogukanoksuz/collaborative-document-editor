@@ -1,5 +1,9 @@
 /**
  * @type {any}
+ * 
+ * COLLABORATIVE DOCUMENT EDITOR
+ * SOCKET SRV BY DIVERGENT
+ * 
  */
 const WebSocket = require('ws')
 const http = require('http')

@@ -1,6 +1,6 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <livewire:breadcrumb :folderId="$folderId" :documentId="$document->id" />
+        <livewire:breadcrumb :documentId="$document->id" />
         <div class="userlist-Dropdown float-right">
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <div class="flex -space-x-1 overflow-hidden userlist">

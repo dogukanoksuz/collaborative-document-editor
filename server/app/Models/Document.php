@@ -11,16 +11,11 @@ class Document extends Model
     use HasFactory, Uuids;
 
     protected $fillable = [
-        'name', 'content', 'folder_id'
+        'name', 'content'
     ];
 
     public function user()
     {
         return $this->belongsToMany(User::class);
-    }
-
-    public function folder()
-    {
-        return $this->belongsTo(Folder::class);
     }
 }
